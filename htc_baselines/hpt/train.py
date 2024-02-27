@@ -63,7 +63,9 @@ if __name__ == '__main__':
     utils.seed_torch(args.seed)
 
     tokenizer = AutoTokenizer.from_pretrained(args.arch)
-    data_path = os.path.join('data', args.data)
+    data_path = os.path.join('./data', args.data)
+    if args.data in ['gastroenterology', 'dermatology', 'inpatient']:
+        data_path = os.path.join('./data/medical_records', args.data)
     batch_size = args.batch
     output_dir = f'all_results/{args.data}/hpt'
 
@@ -73,7 +75,7 @@ if __name__ == '__main__':
         # convert flat text classification data into HPT data format
         from hpt_preprocess import convert_hpt_data
         print('converting into HPT data format')
-        convert_hpt_data(args.data)
+        convert_hpt_data(args.data, data_path)
         print('done')
 
     label_dict = torch.load(os.path.join(data_path, 'hpt_value_dict.pt'))

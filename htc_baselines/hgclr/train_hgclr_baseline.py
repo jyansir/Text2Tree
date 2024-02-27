@@ -105,6 +105,8 @@ if __name__ == '__main__':
     # args.name = args.name + '-seed' + str(args.seed) + '-max_len' + str(args.max_length) + '-lr' + str(args.lr)
     tokenizer = AutoTokenizer.from_pretrained(args.model)
     data_path = os.path.join('./data', args.dataset)
+    if args.dataset in ['gastroenterology', 'dermatology', 'inpatient']:
+        data_path = os.path.join('./data/medical_records', args.dataset)
     label_dict_file = os.path.join(data_path, 'label_dict.json')
     if not os.path.exists(label_dict_file):
         print('generating label hierarchy files for HGCLR')

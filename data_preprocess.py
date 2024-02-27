@@ -60,7 +60,7 @@ def preprocess(data_name, dataset):
             f.write('\n'.join(codes_50))
         # run provided scripts to convert ICD-9 to ICD-10 (you can manually execute it in cli)
         print('try to convert ICD-9 to ICD-10')
-        os.system('python /data/mimic3-top50/icd9to10.py data/mimic3-top50/icd9label.txt')
+        os.system('python data/mimic3-top50/icd9to10.py data/mimic3-top50/icd9label.txt')
         print('done')
         # read conversion results
         with open('icd9label.txt.out', 'r') as f:

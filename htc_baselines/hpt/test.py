@@ -23,14 +23,16 @@ if __name__ == '__main__':
     checkpoint = torch.load(os.path.join(output_dir, args.name, 'checkpoint_best{}.pt'.format(args.extra)),
                             map_location='cpu')
     batch_size = args.batch
-    data_path = args.data
     extra = args.extra
     args = checkpoint['args'] if checkpoint['args'] is not None else args
     args = parser.parse_args(namespace=args)
     print(args)
-    with open(f'data/{args.data}/data_info.json', 'r') as f:
+    data_path = os.path.join('./data', args.data)
+    if args.data in ['gastroenterology', 'dermatology', 'inpatient']:
+        data_path = os.path.join('./data/medical_records', args.data)
+
+    with open(f'{data_path}/data_info.json', 'r') as f:
         num_parent_nodes = json.load(f)['num_parent_nodes']
-    data_path = os.path.join('data', args.data if 'data' in args else data_path)
 
     tokenizer = AutoTokenizer.from_pretrained(args.arch)
 

@@ -62,6 +62,8 @@ if __name__ == '__main__':
     tokenizer = AutoTokenizer.from_pretrained(args.model)
 
     data_path = os.path.join('./data', args.dataset)
+    if args.dataset in ['gastroenterology', 'dermatology', 'inpatient']:
+        data_path = os.path.join('./data/medical_records', args.dataset)
     with open(os.path.join(data_path, 'label_dict.json'), 'r') as f:
         label_dict = json.load(f)
     # label_dict = torch.load(os.path.join(data_path, 'bert_value_dict.pt'))
